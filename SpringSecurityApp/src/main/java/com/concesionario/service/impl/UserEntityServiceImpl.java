@@ -54,4 +54,22 @@ public class UserEntityServiceImpl implements IUserEntityService {
             throw new UsernameNotFoundException("Usuario no encontrado.");
         }
     }
+
+    @Override
+    public void enableUser(String username) {
+        Optional<UserEntity> optionalUser = this.userEntityDAO.findUserEntityByUsername(username);
+
+        if (optionalUser.isPresent()){
+
+            UserEntity user = optionalUser.get();
+            user.setEnabled(true);
+            user.setAccountNoExpired(true);
+            user.setCredentialNoExpired(true);
+            user.setAccountNoLocked(true);
+            this.userEntityDAO.save(user);
+        } else {
+
+            throw new UsernameNotFoundException("Usuario no encontrado.");
+        }
+    }
 }

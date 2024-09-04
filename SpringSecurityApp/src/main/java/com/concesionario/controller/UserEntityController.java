@@ -109,11 +109,20 @@ public class UserEntityController {
 
     @PutMapping("/disableUser/{username}")
     @PreAuthorize("hasAuthority('UPDATE')")
-    ResponseEntity<String> desableUser(@PathVariable String username){
+    ResponseEntity<String> disableUser(@PathVariable String username){
 
         this.userEntityService.disabledUser(username);
 
-        return ResponseEntity.ok("User " + username + " disabled.");
+        return ResponseEntity.ok("The user " + username + " has been disabled.");
+    }
+
+    @PutMapping("enableUser/{username}")
+    @PreAuthorize("hasAuthority('UPDATE')")
+    ResponseEntity<String> enableUser(@PathVariable String username){
+
+        this.userEntityService.enableUser(username);
+
+        return ResponseEntity.ok("The user " + username + " has been enabled.");
     }
 
 }
