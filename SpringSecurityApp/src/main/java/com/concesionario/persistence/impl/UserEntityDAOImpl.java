@@ -34,4 +34,9 @@ public class UserEntityDAOImpl implements IUserEntityDAO {
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<UserEntity> findUserEntityByUsername(String username) {
+        return this.userRepository.findUserEntityByUsername(username);
+    }
 }

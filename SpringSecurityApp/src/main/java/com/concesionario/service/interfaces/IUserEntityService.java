@@ -14,4 +14,6 @@ public interface IUserEntityService {
     void save(UserEntity userEntity);
 
     void deleteById(Long id);
+
+    void disabledUser(String username);
 }

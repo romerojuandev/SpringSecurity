@@ -107,4 +107,13 @@ public class UserEntityController {
         return ResponseEntity.badRequest().build();
     }
 
+    @PutMapping("/disableUser/{username}")
+    @PreAuthorize("hasAuthority('UPDATE')")
+    ResponseEntity<String> desableUser(@PathVariable String username){
+
+        this.userEntityService.disabledUser(username);
+
+        return ResponseEntity.ok("User " + username + " disabled.");
+    }
+
 }

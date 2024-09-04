@@ -14,4 +14,6 @@ public interface IUserEntityDAO {
     void save(UserEntity userEntity);
 
     void deleteById(Long id);
+
+    Optional<UserEntity> findUserEntityByUsername(String username);
 }

@@ -4,6 +4,7 @@ import com.concesionario.persistence.entities.UserEntity;
 import com.concesionario.persistence.interfaces.IUserEntityDAO;
 import com.concesionario.service.interfaces.IUserEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,5 +35,23 @@ public class UserEntityServiceImpl implements IUserEntityService {
     @Override
     public void deleteById(Long id) {
         userEntityDAO.deleteById(id);
+    }
+
+    @Override
+    public void disabledUser(String username) {
+        Optional<UserEntity> optionalUser = this.userEntityDAO.findUserEntityByUsername(username);
+
+        if(optionalUser.isPresent()){
+
+            UserEntity user = optionalUser.get();
+            user.setEnabled(false);
+            user.setAccountNoExpired(false);
+            user.setCredentialNoExpired(false);
+            user.setAccountNoLocked(false);
+            this.userEntityDAO.save(user);
+        } else {
+
+            throw new UsernameNotFoundException("Usuario no encontrado.");
+        }
     }
 }
