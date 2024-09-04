@@ -5,6 +5,7 @@ import com.concesionario.persistence.interfaces.IUserEntityDAO;
 import com.concesionario.service.interfaces.IUserEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -66,6 +67,29 @@ public class UserEntityServiceImpl implements IUserEntityService {
             user.setAccountNoExpired(true);
             user.setCredentialNoExpired(true);
             user.setAccountNoLocked(true);
+            this.userEntityDAO.save(user);
+        } else {
+
+            throw new UsernameNotFoundException("Usuario no encontrado.");
+        }
+    }
+
+    @Override
+    public void changePassword(String username, String currentPassword, String newPassword) {
+        Optional<UserEntity> optionalUser = this.userEntityDAO.findUserEntityByUsername(username);
+
+        BCryptPasswordEncoder encoder =  new BCryptPasswordEncoder();
+
+        if (optionalUser.isPresent()){
+
+            UserEntity user = optionalUser.get();
+            if (!encoder.matches(currentPassword, user.getPassword())){
+
+                throw new IllegalArgumentException("La contraseña actual es incorrecta");
+            }
+
+            String password = encoder.encode(newPassword);
+            user.setPassword(password);
             this.userEntityDAO.save(user);
         } else {
 

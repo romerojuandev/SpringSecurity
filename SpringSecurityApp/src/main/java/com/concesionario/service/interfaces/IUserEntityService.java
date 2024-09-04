@@ -18,4 +18,6 @@ public interface IUserEntityService {
     void disabledUser(String username);
 
     void enableUser(String username);
+
+    void changePassword(String username, String currentPassword, String newPassword);
 }

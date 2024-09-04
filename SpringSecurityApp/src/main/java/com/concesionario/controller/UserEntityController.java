@@ -6,6 +6,7 @@ import com.concesionario.persistence.entities.UserEntity;
 import com.concesionario.service.interfaces.IUserEntityService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -125,4 +126,12 @@ public class UserEntityController {
         return ResponseEntity.ok("The user " + username + " has been enabled.");
     }
 
+    @PatchMapping("/changePassword/{username}")
+    @PreAuthorize("hasAuthority('UPDATE')")
+    ResponseEntity<String> changePassword(@PathVariable String username, @RequestParam String currentPass, @RequestParam String newPass){
+
+        this.userEntityService.changePassword(username, currentPass, newPass);
+
+        return ResponseEntity.ok("Password changed.");
+    }
 }
