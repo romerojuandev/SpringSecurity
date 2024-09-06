@@ -4,10 +4,12 @@ import com.concesionario.persistence.entities.Vehicle;
 import com.concesionario.persistence.interfaces.IVehicleDAO;
 import com.concesionario.service.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class VehicleServiceImpl implements IVehicleService {
 
     @Autowired

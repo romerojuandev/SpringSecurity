@@ -4,10 +4,12 @@ import com.concesionario.persistence.entities.Maker;
 import com.concesionario.persistence.interfaces.IMakerDAO;
 import com.concesionario.service.interfaces.IMakerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MakerServiceImpl implements IMakerService {
 
     @Autowired

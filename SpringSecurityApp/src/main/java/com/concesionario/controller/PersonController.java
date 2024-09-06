@@ -67,11 +67,13 @@ public class PersonController {
         if (optionalPerson.isPresent()){
 
             Person person = optionalPerson.get();
-            person.setEmail(personDTO.getEmail());
             person.setName(personDTO.getName());
-            person.setLastName(personDTO.getEmail());
+            person.setEmail(personDTO.getEmail());
             person.setPhone(personDTO.getPhone());
-            person.setUserEntity(personDTO.getUserEntity());
+            person.setLastName(personDTO.getEmail());
+            person.setAddress(personDTO.getAddress());
+            person.setIdentity(personDTO.getIdentity());
+            person.setBirthDate(personDTO.getBirthDate());
             this.personService.save(person);
 
             return ResponseEntity.ok(personDTO);
